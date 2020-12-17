@@ -5,36 +5,29 @@
       :cart="cart"
       :cartQty="cartQty"
       :cartTotal="cartTotal"
-      @delete="deleteItem"
-      @add="addItem"
       :sliderStatus="sliderStatus"
       :maximum.sync="maximum"
       :products="products"
+      @add="addItem"
+      @delete="deleteItem"
       @toggle="toggleSliderStatus"
     ></router-view>
   </div>
 </template>
 
 <script>
-import Checkout from "./components/Checkout.vue";
-import Products from "./components/Products.vue";
-
 export default {
   name: "App",
-  components: {
-    Products,
-    Checkout
-  },
-  data: function() {
+  data: function () {
     return {
       maximum: 99,
       sliderStatus: true,
       cart: [],
-      products: null
+      products: null,
     };
   },
   computed: {
-    cartTotal: function() {
+    cartTotal: function () {
       let sum = 0;
       for (let key in this.cart) {
         sum = sum + this.cart[key].product.price * this.cart[key].qty;
@@ -42,23 +35,23 @@ export default {
       return sum;
     },
 
-    cartQty: function() {
+    cartQty: function () {
       let qty = 0;
       for (let key in this.cart) {
         qty = qty + this.cart[key].qty;
       }
       return qty;
-    }
+    },
   },
 
   methods: {
-    toggleSliderStatus: function() {
+    toggleSliderStatus: function () {
       this.sliderStatus = !this.sliderStatus;
     },
 
-    addItem: function(product) {
+    addItem: function (product) {
       var whichProduct;
-      var existing = this.cart.filter(function(item, index) {
+      var existing = this.cart.filter(function (item, index) {
         if (item.product.id == Number(product.id)) {
           whichProduct = index;
           return true;
@@ -73,21 +66,21 @@ export default {
         this.cart.push({ product: product, qty: 1 });
       }
     },
-    deleteItem: function(id) {
+    deleteItem: function (id) {
       if (this.cart[id].qty > 1) {
         this.cart[id].qty--;
       } else {
         this.cart.splice(id, 1);
       }
-    }
+    },
   },
 
-  mounted: function() {
+  mounted: function () {
     fetch("https://hplussport.com/api/products/order/price")
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         this.products = data;
       });
-  }
+  },
 };
 </script>
