@@ -18,6 +18,7 @@ library.add(faShoppingCart, faDollarSign);
 
 import Products from "./components/Products.vue";
 import Checkout from "./components/Checkout.vue";
+import ProductDetail from "./components/ProductDetail.vue";
 
 Vue.use(VueRouter);
 Vue.config.productionTip = false;
@@ -31,7 +32,11 @@ const router = new VueRouter({
     {
       path: "/checkout",
       component: Checkout
-    }
+    },
+    {
+      path: "/product-detail",
+      component: ProductDetail
+    },
   ]
 });
 

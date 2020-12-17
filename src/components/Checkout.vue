@@ -11,9 +11,9 @@
       </caption>
       <thead>
         <tr>
-          <th scope="col"></th>
+          <th scope="col" class="text-center">Increase - Decrease Amount</th>
           <th scope="col">Item</th>
-          <th scope="col" class="text-center">Qty</th>
+          <th scope="col" class="text-center">Quantity</th>
           <th scope="col" class="text-right">Price</th>
           <th scope="col" class="text-right">Sub-total</th>
         </tr>
@@ -22,11 +22,15 @@
         <tr v-for="(item, index) in cart" :key="item.product.id">
           <td class="text-center">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button @click="$emit('add', item.product)" class="btn btn-info">+</button>
+              <button @click="$emit('add', item.product)" class="btn btn-info">
+                +
+              </button>
               <button
                 @click="$emit('delete', index)"
                 class="btn btn-outline-info"
-              >-</button>
+              >
+                -
+              </button>
             </div>
           </td>
           <th scope="row">{{ item.product.name }}</th>
@@ -38,7 +42,16 @@
         </tr>
       </tbody>
     </table>
-    <router-link class="btn btn-sm btn-outline-info text-dark" to="/">Keep Shopping</router-link>
+    <div>
+      <router-link class="btn btn-sm btn-outline-info text-dark mb-4" to="/"
+        >Keep Shopping</router-link
+      >
+      <router-link
+        class="btn btn-sm btn-outline-info text-dark mb-4 float-right"
+        to="#"
+        >Pay Now</router-link
+      >
+    </div>
   </div>
 </template>
 
@@ -49,7 +62,7 @@ export default {
   name: "checkout",
   props: ["cart", "cartTotal"],
   components: {
-    Price
-  }
+    Price,
+  },
 };
 </script>

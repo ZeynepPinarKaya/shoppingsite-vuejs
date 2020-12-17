@@ -22,7 +22,7 @@
         <img class="img-fluid d-block" :src="item.image" :alt="item.name" />
       </div>
       <div class="col">
-        <h3 class="text-info">{{ item.name }}</h3>
+          <router-link to="/product-detail"><h3 class="text-info">{{ item.name }}</h3></router-link>
         <p class="mb-0">{{ item.description }}</p>
         <div class="h5 float-right">
           <price :value="Number(item.price)"> </price>
