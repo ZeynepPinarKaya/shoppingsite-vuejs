@@ -1,7 +1,10 @@
 <template>
   <nav class="navbar navbar-light sticky-top">
     <div class="navbar-text ml-auto d-flex">
-      <button class="btn btn-sm btn-outline-success" @click="$emit('toggle')">
+      <button
+        class="btn btn-sm btn-outline-success"
+        @click="$parent.$emit('toggle')"
+      >
         <font-awesome-icon icon="dollar-sign"></font-awesome-icon>
       </button>
       <div class="dropdown ml-2" v-if="cart.length > 0">
@@ -14,7 +17,7 @@
         >
           <span class="badge badge-pill badge-light">{{ cartQty }}</span>
           <i class="fas fa-shopping-cart mx-2"></i>
-          {{ cartTotal | currency }}
+          <price :value="Number(cartTotal)"></price>
         </button>
         <div
           class="dropdown-menu dropdown-menu-right"
@@ -27,13 +30,13 @@
                 >{{ item.qty }}</span
               >
               {{ item.product.name }}
-
-              <b>{{ (item.qty * item.product.price) | currency }}$</b>
-
+              <b>
+                <price :value="Number(item.qty * item.product.price)"></price>
+              </b>
               <a
                 href="#"
-                @click.stop="deleteItem(index)"
-                class="badge badge-danger text-white"
+                @click.stop="$parent.$emit('delete', index)"
+                class="badge badge-danger text-white align-middle"
                 >-</a
               >
             </div>
@@ -47,6 +50,7 @@
 <script>
 import Price from "./Price.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+
 export default {
   name: "navbar",
   props: ["cart", "cartQty", "cartTotal"],

@@ -14,7 +14,7 @@
       :data-index="index"
     >
       <div class="col-2 m-auto">
-        <button class="btn btn-info" @click="$emit('add', item)">
+        <button class="btn btn-info" @click="$parent.$emit('add', item)">
           Add to Cart
         </button>
       </div>

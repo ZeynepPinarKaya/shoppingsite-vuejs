@@ -1,34 +1,29 @@
+/* eslint-disable no-undef */
 <template>
   <div id="app" class="container mt-5">
-    <h1>Shopping Fever</h1>
-    <navbar
+    <router-view
       :cart="cart"
       :cartQty="cartQty"
       :cartTotal="cartTotal"
-      @toggle="toggleSliderStatus"
-    ></navbar>
-    <price-slider
+      @delete="deleteItem"
+      @add="addItem"
       :sliderStatus="sliderStatus"
       :maximum.sync="maximum"
-    ></price-slider>
-    <product-list :maximum="maximum" :products="products" @add="addItem">
-    </product-list>
+      :products="products"
+      @toggle="toggleSliderStatus"
+    ></router-view>
   </div>
 </template>
 
 <script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import ProductList from "./components/ProductList.vue";
-import PriceSlider from "./components/PriceSlider.vue";
-import Navbar from "./components/Navbar.vue";
+import Checkout from "./components/Checkout.vue";
+import Products from "./components/Products.vue";
 
 export default {
   name: "App",
   components: {
-    FontAwesomeIcon,
-    ProductList,
-    PriceSlider,
-    Navbar
+    Products,
+    Checkout
   },
   data: function() {
     return {
@@ -38,6 +33,24 @@ export default {
       products: null
     };
   },
+  computed: {
+    cartTotal: function() {
+      let sum = 0;
+      for (let key in this.cart) {
+        sum = sum + this.cart[key].product.price * this.cart[key].qty;
+      }
+      return sum;
+    },
+
+    cartQty: function() {
+      let qty = 0;
+      for (let key in this.cart) {
+        qty = qty + this.cart[key].qty;
+      }
+      return qty;
+    }
+  },
+
   methods: {
     toggleSliderStatus: function() {
       this.sliderStatus = !this.sliderStatus;
@@ -58,6 +71,13 @@ export default {
         this.cart[whichProduct].qty++;
       } else {
         this.cart.push({ product: product, qty: 1 });
+      }
+    },
+    deleteItem: function(id) {
+      if (this.cart[id].qty > 1) {
+        this.cart[id].qty--;
+      } else {
+        this.cart.splice(id, 1);
       }
     }
   },
