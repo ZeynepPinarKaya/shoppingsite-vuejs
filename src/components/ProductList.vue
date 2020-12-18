@@ -57,7 +57,7 @@ export default {
         el.className =
           "row d-flex mb-3 align-items-center animated fadeOutRight ";
       }, delay);
-    },
-  },
+    }
+  }
 };
 </script>

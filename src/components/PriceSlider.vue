@@ -20,7 +20,7 @@
           type="range"
           class="custom-range"
           min="0"
-          max="200"
+          max="125"
           v-model="maxAmount"
           @input="$parent.$emit('update:maximum', maxAmount)"
         />

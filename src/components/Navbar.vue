@@ -1,8 +1,7 @@
 <template>
   <nav class="navbar navbar-light fixed-top">
     <div class="navbar-text ml-auto d-flex">
-      <div  v-if="isListingPage" id="dollar-btn">
-        <div :class="buttonState">
+      <div v-if="showDollarButton" id="dollar-btn">
           <button
             id="dollar-btn"
             class="btn btn-sm btn-outline-success"
@@ -10,7 +9,6 @@
           >
             <font-awesome-icon icon="dollar-sign"></font-awesome-icon>
           </button>
-        </div>
       </div>
       <div class="dropdown ml-2" v-if="cart.length > 0">
         <button
@@ -64,15 +62,11 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   name: "navbar",
-  props: ["cart", "cartQty", "cartTotal", "isListingPage"],
-  computed: {
-    buttonState: function () {
-      return this.isListingPage ? "d-flex" : "d-none";
-    },
-  },
+  props: ["cart", "cartQty", "cartTotal", "showDollarButton"],
+
   components: {
     FontAwesomeIcon,
-    Price,
-  },
+    Price
+  }
 };
 </script>

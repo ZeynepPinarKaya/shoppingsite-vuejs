@@ -11,7 +11,7 @@
       </caption>
       <thead>
         <tr>
-          <th scope="col" class="text-center">Increase - Decrease Amount</th>
+          <th scope="col" class="text-center">Adjust Amount</th>
           <th scope="col">Item</th>
           <th scope="col" class="text-center">Quantity</th>
           <th scope="col" class="text-right">Price</th>
@@ -35,9 +35,9 @@
           </td>
           <th scope="row">{{ item.product.name }}</th>
           <td class="text-center">{{ item.qty }}</td>
-          <td class="text-right">{{ Number(item.product.price) }}</td>
+          <td class="text-right">{{ Number(item.product.price) +"$"}}</td>
           <td class="text-right">
-            {{ Number(item.qty * item.product.price) }}
+            {{ Number(item.qty * item.product.price) +"$"}}
           </td>
         </tr>
       </tbody>

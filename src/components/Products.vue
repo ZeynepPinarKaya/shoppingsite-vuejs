@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Shopping Fever</h1>
-    <navbar :cart="cart" :cartQty="cartQty" :cartTotal="cartTotal"></navbar>
+    <navbar :cart="cart" :cartQty="cartQty" :cartTotal="cartTotal" :showDollarButton="true"></navbar>
 
     <price-slider
       :sliderStatus="sliderStatus"
