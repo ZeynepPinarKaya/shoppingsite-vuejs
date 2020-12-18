@@ -1,24 +1,18 @@
 <template>
   <div>
     <navbar :cart="cart" :cartQty="cartQty" :cartTotal="cartTotal"></navbar>
+    <button @click="$router.go(-1)" class="btn btn-default">&lt; Back</button>
     <h1>Product Detail</h1>
-    <div
-      class="row d-flex mb-3 align-items-center"
-      v-for="(item, index) in products"
-      :key="item.id"
-      :data-index="index"
-    >
+    <div v-if="product">
       <div class="col-4">
-        <img class="img-fluid d-block" :src="item.image" :alt="item.name" />
+        <img class="img-fluid d-block" :src="product.image" :alt="product.name" />
       </div>
       <div class="col">
-        <router-link to="/product-detail"
-          ><h3 class="text-info">{{ item.name }}</h3></router-link
-        >
-        <p class="mb-0">{{ item.description }}</p>
+        <h3 class="text-info">{{ product.name }}</h3>
+        <p class="mb-0">{{ product.description }}</p>
         <div class="h5 float-right m-4">
-          <price :value="Number(item.price)"> </price>
-          <button class="btn btn-info" @click="$emit('add', item)">
+          <price :value="Number(product.price)"> </price>
+          <button class="btn btn-info" @click="$emit('add', product)">
             Add to Cart
           </button>
         </div>
@@ -32,11 +26,26 @@ import Navbar from "./Navbar.vue";
 import Price from "./Price.vue";
 
 export default {
-  name: "products",
-  props: ["products", "cart", "cartQty", "cartTotal"],
+  name: "ProductDetail",
+  props: ["cart", "cartQty", "cartTotal"],
   components: {
     Navbar,
     Price
   },
+
+  data: function(){
+    return {
+      productId: this.$route.params.id,
+      product: null
+    }
+  },
+
+  mounted: function(){  
+    fetch("https://hplussport.com/api/products/id/" + this.productId)
+      .then((response) => response.json())
+      .then((data) => {
+        this.product = data[0];
+      });
+  }
 };
 </script>

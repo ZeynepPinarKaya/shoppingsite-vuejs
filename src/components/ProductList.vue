@@ -22,7 +22,9 @@
         <img class="img-fluid d-block" :src="item.image" :alt="item.name" />
       </div>
       <div class="col">
-          <router-link to="/product-detail"><h3 class="text-info">{{ item.name }}</h3></router-link>
+        <router-link :to="'/product-detail/' + item.id"
+          ><h3 class="text-info">{{ item.name }}</h3></router-link
+        >
         <p class="mb-0">{{ item.description }}</p>
         <div class="h5 float-right">
           <price :value="Number(item.price)"> </price>
@@ -39,23 +41,23 @@ export default {
   components: { Price },
   props: ["products", "maximum"],
   methods: {
-    beforeEnter: function(el) {
+    beforeEnter: function (el) {
       el.className = "d-none";
     },
-    enter: function(el) {
+    enter: function (el) {
       var delay = el.dataset.index * 50;
       setTimeout(() => {
         el.className =
           "row d-flex mb-3 align-items-center animated fadeInRight ";
       }, delay);
     },
-    leave: function(el) {
+    leave: function (el) {
       var delay = el.dataset.index * 10;
       setTimeout(() => {
         el.className =
           "row d-flex mb-3 align-items-center animated fadeOutRight ";
       }, delay);
-    }
-  }
+    },
+  },
 };
 </script>

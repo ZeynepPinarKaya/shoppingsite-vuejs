@@ -1,12 +1,17 @@
 <template>
-  <nav class="navbar navbar-light sticky-top">
+  <nav class="navbar navbar-light fixed-top">
     <div class="navbar-text ml-auto d-flex">
-      <button
-        class="btn btn-sm btn-outline-success"
-        @click="$parent.$emit('toggle')"
-      >
-        <font-awesome-icon icon="dollar-sign"></font-awesome-icon>
-      </button>
+      <div  v-if="isListingPage" id="dollar-btn">
+        <div :class="buttonState">
+          <button
+            id="dollar-btn"
+            class="btn btn-sm btn-outline-success"
+            @click="$parent.$emit('toggle')"
+          >
+            <font-awesome-icon icon="dollar-sign"></font-awesome-icon>
+          </button>
+        </div>
+      </div>
       <div class="dropdown ml-2" v-if="cart.length > 0">
         <button
           class="btn btn-success btn-sm dropdown-toggle"
@@ -52,16 +57,22 @@
   </nav>
 </template>
 
+
 <script>
 import Price from "./Price.vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 export default {
   name: "navbar",
-  props: ["cart", "cartQty", "cartTotal"],
+  props: ["cart", "cartQty", "cartTotal", "isListingPage"],
+  computed: {
+    buttonState: function () {
+      return this.isListingPage ? "d-flex" : "d-none";
+    },
+  },
   components: {
     FontAwesomeIcon,
-    Price
-  }
+    Price,
+  },
 };
 </script>
